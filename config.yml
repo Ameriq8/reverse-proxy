@@ -1,4 +1,4 @@
-servers: # List of servers to proxy requests to
+servers:                      # List of servers to proxy requests to
   - address: "127.0.0.1:9091" # Address of the server
     timeout:                  # Timeout for the server
       connect: 5s             # Timeout for connecting to the server
