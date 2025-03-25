@@ -1,0 +1,40 @@
+servers: # List of servers to proxy requests to
+  - address: "127.0.0.1:9091" # Address of the server
+    timeout:                  # Timeout for the server
+      connect: 5s             # Timeout for connecting to the server
+      read: 10s               # Timeout for reading the response from the server
+      write: 10s              # Timeout for writing the request to the server
+  
+load_balancer:                # Load balancer configuration
+  strategy: "round-robin"     # Default strategy for the proxy (round-robin, random, least-connections)
+  health_check:               # Health check configuration
+    interval: 5s              # Interval between health checks
+    timeout: 2s               # Timeout for health checks
+    retries: 3                # Number of retries before marking a server as unhealthy
+    unhealthy_threshold: 3    # Number of consecutive failures before marking a server as unhealthy
+    healthy_threshold: 3      # Number of consecutive successes before marking a server as healthy
+  
+proxy:                        # Proxy configuration
+  port: 8080                  # Port to listen for incoming requests
+  timeout:                    # Timeout for the proxy
+    connect: 5s               # Timeout for connecting to the client
+    read: 10s                 # Timeout for reading the request from the client
+    write: 10s                # Timeout for writing the response to the client
+  max_connections: 1000       # Maximum number of connections to the proxy
+  max_idle_connections: 100   # Maximum number of idle connections to the proxy
+  idle_timeout: 60s           # Timeout for idle connections to the proxy
+  read_buffer_size: 4096      # Size of the read buffer for the proxy
+  write_buffer_size: 4096     # Size of the write buffer for the proxy
+  log_requests: true          # Log incoming requests to the proxy
+  log_responses: true         # Log outgoing responses from the proxy
+  log_errors: true            # Log errors that occur in the proxy
+  log_format: "json"          # Format for logging (json, text)
+  log_level: "info"           # Log level for the proxy (debug, info, warn, error)
+  log_output: "stdout"        # Output for logging (stdout, stderr, file)
+  log_file: "proxy.log"       # File to write logs to
+  log_max_size: 100           # Maximum size of the log file in MB
+  log_max_backups: 3          # Maximum number of log file backups
+  log_max_age: 7              # Maximum age of log files in days
+  metrics:                    # Metrics configuration
+    enabled: true             # Enable metrics collection
+    port: 9090                # Port to expose metrics
